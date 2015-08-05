@@ -1,1 +1,1 @@
-# python-training-group3
+# repository for python-training-group3
