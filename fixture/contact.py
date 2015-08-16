@@ -5,6 +5,14 @@ class ContactHelper:
     def __init__(self, app):
         self.app = app
 
+    def delete_first_contact(self):
+        wd = self.app.wd
+        self.open_contact_page()
+        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_name("delete").click()
+        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+
+
     def create(self, contact):
         wd = self.app.wd
         self.open_contact_page()
