@@ -1,5 +1,7 @@
 from selenium.webdriver.firefox.webdriver import WebDriver
 from fixture.session import SessionHelper
+from fixture.group import GroupHelper
+
 __author__ = 'Liudmila'
 
 class Application:
@@ -7,7 +9,7 @@ class Application:
         self.wd = WebDriver()
         self.wd.implicitly_wait(60)
         self.session = SessionHelper(self)
-
+        self.group = GroupHelper(self)
 
     def create_contact(self, contact):
         wd = self.wd
