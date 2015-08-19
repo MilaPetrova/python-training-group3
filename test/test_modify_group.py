@@ -2,7 +2,17 @@ __author__ = 'Liudmila'
 
 from model.group import Group
 
-def test_add_contact(app):
+def test_modify_group_name(app):
     app.session.login(username="admin", password="secret")
-    app.group.modify(Group(name="test_name2",header="test_header2", footer="test_header3"))
+    app.group.modify_first_group(Group(name="new_name"))
+    app.session.logout()
+
+def test_modify_group_header(app):
+    app.session.login(username="admin", password="secret")
+    app.group.modify_first_group(Group(header="new_header"))
+    app.session.logout()
+
+def test_modify_group_footer(app):
+    app.session.login(username="admin", password="secret")
+    app.group.modify_first_group(Group(footer="new_footer"))
     app.session.logout()
