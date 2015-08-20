@@ -15,7 +15,7 @@ class GroupHelper:
         self.open_group_page()
         self.select_first_group()
         wd.find_element_by_name("delete").click()
-        self.return_group_page()
+        wd.get("http://localhost/addressbook/")
 
     def select_first_group(self):
         wd = self.app.wd
