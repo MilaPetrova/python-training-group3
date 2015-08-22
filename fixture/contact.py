@@ -7,8 +7,10 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
-        wd.find_element_by_name("selected[]").click()
-        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        wd.find_element_by_xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input").click()
+        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        alert = wd.switch_to.alert
+        alert.accept()
 
     def modify_first_contact(self, new_contact_data):
         wd = self.app.wd
