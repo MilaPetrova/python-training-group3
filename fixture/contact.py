@@ -11,13 +11,14 @@ class ContactHelper:
         wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         alert = wd.switch_to.alert
         alert.accept()
+        wd.get("http://localhost/addressbook/")
 
     def modify_first_contact(self, new_contact_data):
         wd = self.app.wd
         wd.find_element_by_css_selector("img[alt=\"Edit\"]").click()
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_xpath("//div[@id='content']/form[1]/input[22]").click()
-
+        wd.get("http://localhost/addressbook/")
 
     def fill_contact_form(self, contact):
         wd = self.app.wd
@@ -42,11 +43,12 @@ class ContactHelper:
         self.open_contact_page()
         self.fill_contact_form(contact)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
-
+        wd.get("http://localhost/addressbook/")
 
     def open_contact_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
+        if not(wd.current_url.endswith("/edit.php")):
+            wd.find_element_by_link_text("add new").click()
 
     def count(self):
         wd = self.app.wd

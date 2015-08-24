@@ -29,7 +29,7 @@ class GroupHelper:
         # modify group creation
         self.fill_group_form(new_group_data)
         wd.find_element_by_name("update").click()
-        self.return_group_page()
+        wd.get("http://localhost/addressbook/")
 
     def create(self, group):
         wd = self.app.wd
@@ -39,7 +39,7 @@ class GroupHelper:
         self.fill_group_form(group)
         #submit form
         wd.find_element_by_name("submit").click()
-        self.return_group_page()
+        wd.get("http://localhost/addressbook/")
 
     def fill_group_form(self, group):
         wd = self.app.wd
@@ -57,7 +57,8 @@ class GroupHelper:
 
     def open_group_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("groups").click()
+        if not(wd.current_url.endswith("/group.php")and len(wd.find_elements_by_name("new")) > 0):
+            wd.find_element_by_link_text("groups").click()
 
     def count(self):
         wd = self.app.wd

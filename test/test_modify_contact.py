@@ -9,7 +9,7 @@ def test_modify_contact_firstname(app):
 
 def test_modify_contact_lastname(app):
     if app.contact.count() == 0:
-        app.contact.create(Contact(lasttname="test"))
+        app.contact.create(Contact(lastname="test"))
     app.contact.modify_first_contact(Contact(lastname="Petrova"))
 
 def test_modify_contact_email(app):
