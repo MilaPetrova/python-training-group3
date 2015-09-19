@@ -17,9 +17,9 @@ def load_config(file):
         config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), file)
         with open (config_file)as f:
             target = json.load(f)
-    return target
+   return target
 
-@pytest.fixture
+@pytest.fixture(scope = "session")
 def app(request):
     global fixture
     browser = request.config.getoption("--browser")
@@ -34,7 +34,7 @@ def db(request):
     db_config = load_config(request.config.getoption("--target"))["db"]
     dbfixture = Dbfixture(host=db_config["host"], name=db_config["name"], user=db_config["user"], password=db_config["password"])
     def fin():
-        fixture.destroy()
+        dbfixture.destroy()
     request.addfinalizer(fin)
     return dbfixture
 
