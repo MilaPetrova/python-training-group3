@@ -1,0 +1,40 @@
+[
+  {
+    "company": null,
+    "title": null,
+    "mobilephone": "",
+    "workphone": "",
+    "homephone": "",
+    "email3": "",
+    "email2": "",
+    "lastname": "",
+    "email1": "",
+    "nickname": null,
+    "all_phones_from_home_page": null,
+    "py/object": "model.contact.Contact",
+    "address": "",
+    "all_emails_from_home_page": null,
+    "firstname": "",
+    "secondaryphone": "",
+    "id": null
+  },
+  {
+    "company": null,
+    "title": null,
+    "mobilephone": "newmobileUR fYJNSJ7bo",
+    "workphone": "newwork3ZeMw",
+    "homephone": "newhomefe 5WgUKWu6B",
+    "email3": "newemail3GvqwKrUpQBFt7Aq3Q @gmail.com",
+    "email2": "newemail2aOMYLeldhxvB6@gmail.com",
+    "lastname": "newlastnamefPYu",
+    "email1": "newemailvCHR2 v5cWEKZz@gmail.com",
+    "nickname": null,
+    "all_phones_from_home_page": null,
+    "py/object": "model.contact.Contact",
+    "address": "newaddressFTKbZmRs5B",
+    "all_emails_from_home_page": null,
+    "firstname": "newfirstnamebO ",
+    "secondaryphone": "newphone2TUrqR08R ",
+    "id": null
+  }
+]
