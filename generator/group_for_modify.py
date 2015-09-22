@@ -25,11 +25,10 @@ for o, a in opts:
 
 
 def random_string(prefix, maxlen):
-    symbols = string.ascii_letters + string.digits + " "*10
+    symbols = string.ascii_letters + string.digits
     return prefix + "".join([random.choice(symbols)for i in range(random.randrange(maxlen))])
 
-testdata = [Group(name="", header="", footer="")] + [
-    Group(name=random_string("newname", 10), header=random_string("newheader", 20), footer=random_string("newfooter", 20))
+testdata = [Group(name=random_string("newname", 10), header=random_string("newheader", 20), footer=random_string("newfooter", 20))
     for i in range(1)]
 
 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)

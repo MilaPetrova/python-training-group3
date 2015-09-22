@@ -25,7 +25,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         alert = wd.switch_to.alert
         alert.accept()
-        self.app.open_home_page()
+        wd.find_element_by_link_text("home")
         self.contact_cache = None
 
     def select_contact_by_index(self, index):
@@ -168,5 +168,7 @@ class ContactHelper:
          secondaryphone = re.search("P: (.*)", text).group(1)
          return Contact(homephone=homephone, mobilephone=mobilephone, workphone=workphone,
                        secondaryphone=secondaryphone)
+
+
 
 

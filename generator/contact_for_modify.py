@@ -24,13 +24,10 @@ for o, a in opts:
 
 
 def random_string(prefix, maxlen):
-    symbols = string.ascii_letters + string.digits + " "*5
+    symbols = string.ascii_letters + string.digits
     return prefix + "".join([random.choice(symbols)for i in range(random.randrange(maxlen))])
 
-testdata = [Contact(firstname="", lastname="", address="",
-                    homephone="", mobilephone="", workphone="", secondaryphone="",
-                    email1="",email2="", email3="")] + \
-           [Contact(firstname=random_string("newfirstname", 20), lastname=random_string("newlastname", 20),
+testdata =  [Contact(firstname=random_string("newfirstname", 20), lastname=random_string("newlastname", 20),
             address=random_string("newaddress", 50),
             homephone=random_string("newhome", 15), mobilephone=random_string("newmobile", 15),workphone=random_string("newwork", 15),
             secondaryphone=random_string("newphone2", 15),
