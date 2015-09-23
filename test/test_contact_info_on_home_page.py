@@ -1,5 +1,7 @@
 __author__ = 'Liudmila'
 import re
+from model.contact import Contact
+
 
 def test_all_contacts_on_home_page(app):
     contact_from_home_page = app.contact.get_contact_list()[0]
@@ -9,6 +11,12 @@ def test_all_contacts_on_home_page(app):
     assert contact_from_home_page.firstname == contact_from_edit_page.firstname
     assert contact_from_home_page.lastname == contact_from_edit_page.lastname
     assert contact_from_home_page.address == contact_from_edit_page.address
+
+
+def test_info_on_home_page(app, db):
+    contact_from_home_page = app.contact.get_contact_list()
+    contact_from_db = db.get_contact_list()
+    assert sorted(contact_from_home_page, key=Contact.id_or_max) == sorted(contact_from_db, key=Contact.id_or_max)
 
 def test_phones_on_contact_view_page(app):
     contact_from_view_page = app.contact.get_contact_from_view_page(0)
