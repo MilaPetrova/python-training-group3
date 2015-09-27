@@ -1,6 +1,7 @@
 __author__ = 'Liudmila'
 from model.contact import Contact
 import re
+from selenium.webdriver.support.select import Select
 
 class ContactHelper:
 
@@ -28,6 +29,8 @@ class ContactHelper:
         wd.find_element_by_link_text("home")
         self.contact_cache = None
 
+
+
     def select_contact_by_index(self, index):
         wd = self.app.wd
         self.app.open_home_page()
@@ -37,6 +40,14 @@ class ContactHelper:
         wd = self.app.wd
         self.app.open_home_page()
         wd.find_element_by_css_selector("input[value='%s']" % id).click()
+
+
+
+    def go_to_group_page(self, groupname):
+        wd = self.app.wd
+        self.app.open_home_page()
+        my_select = Select(wd.find_element_by_xpath("//div[@id='content']/form/select[1]"))
+        my_select.select_by_visible_text(groupname)
 
     def select_first_contact(self):
         self.select_contact_by_index(0)
@@ -80,6 +91,30 @@ class ContactHelper:
         self.change_field_value("work", contact.workphone)
         self.change_field_value("phone2", contact.secondaryphone)
 
+    def fill_contact_form_for_group(self, contact, groupname):
+        wd = self.app.wd
+        self.change_field_value("firstname", contact.firstname)
+        self.change_field_value("lastname", contact.lastname)
+        self.change_field_value("email", contact.email1)
+        self.change_field_value("email2", contact.email2)
+        self.change_field_value("email3", contact.email3)
+        self.change_field_value("nickname", contact.nickname)
+        self.change_field_value("title", contact.title)
+        self.change_field_value("company", contact.company)
+        self.change_field_value("address", contact.address)
+        self.change_field_value("home", contact.homephone)
+        self.change_field_value("mobile", contact.mobilephone)
+        self.change_field_value("work", contact.workphone)
+        self.change_field_value("phone2", contact.secondaryphone)
+        my_select = Select(wd.find_element_by_xpath("//div[@id='content']/form/select[5]"))
+        my_select.select_by_visible_text(groupname)
+
+    def fill_contact_form_for_replace_in_group(self, groupname):
+        wd = self.app.wd
+        my_select = Select(wd.find_element_by_xpath("//div[@id='content']/form/select[5]"))
+        my_select.select_by_visible_text(groupname)
+
+
     def change_field_value(self, field_name, text):
         wd = self.app.wd
         if text is not None:
@@ -91,6 +126,22 @@ class ContactHelper:
         wd = self.app.wd
         self.open_contact_page()
         self.fill_contact_form(contact)
+        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        self.app.open_home_page()
+        self.contact_cache = None
+
+    def create_in_group(self, contact, groupname):
+        wd = self.app.wd
+        self.open_contact_page()
+        self.fill_contact_form_for_group(contact, groupname)
+        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        self.app.open_home_page()
+        self.contact_cache = None
+
+    def replace_in_group(self, groupname):
+        wd = self.app.wd
+        self.open_contact_page()
+        self.fill_contact_form_for_replace_in_group(groupname)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.app.open_home_page()
         self.contact_cache = None
@@ -122,9 +173,41 @@ class ContactHelper:
                 all_emails = cells[4].text
                 self.contact_cache.append(Contact(lastname=lastname, firstname=firstname,address=address, id=id,
                                                   all_phones_from_home_page=all_phones, all_emails_from_home_page=all_emails))
-
         return list(self.contact_cache)
 
+    def get_contact_list_in_group(self, groupname):
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.app.open_home_page()
+            self.contact_cache = []
+            my_select = Select(wd.find_element_by_xpath("//div[@id='content']/form/select[1]"))
+            my_select.select_by_visible_text(groupname)
+            for row in wd.find_elements_by_name("entry"):
+                cells = row.find_elements_by_tag_name("td")
+                lastname = cells[1].text
+                firstname = cells[2].text
+                id = cells[0].find_element_by_tag_name("input").get_attribute("value")
+                all_phones = cells[5].text
+                all_emails = cells[4].text
+                self.contact_cache.append(Contact(lastname=lastname, firstname=firstname, id=id,
+                                                  all_phones_from_home_page=all_phones, all_emails_from_home_page=all_emails))
+        return list(self.contact_cache)
+
+    def add_in_group(self, groupname):
+        wd = self.app.wd
+        self.app.open_home_page()
+
+        my_select = Select(wd.find_element_by_xpath("//div[@id='content']/form/select[1]"))
+        my_select.select_by_visible_text(groupname)
+        self.contact_cache = None
+
+    def add_from_homepage_in_group(self, id, groupname):
+        wd = self.app.wd
+        self.app.open_home_page()
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+        my_select = Select(wd.find_element_by_xpath("//div[@id='content']/form/select[1]"))
+        my_select.select_by_visible_text(groupname)
+        self.contact_cache = None
 
     def open_contact_edit_by_index(self,index):
         wd = self.app.wd
