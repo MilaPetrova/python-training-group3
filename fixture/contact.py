@@ -141,8 +141,9 @@ class ContactHelper:
     def replace_in_group(self, groupname):
         wd = self.app.wd
         self.open_contact_page()
-        self.fill_contact_form_for_replace_in_group(groupname)
-        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        my_select = Select(wd.find_element_by_name("to_group"))
+        my_select.select_by_visible_text(groupname)
+        wd.find_element_by_name("add").click()
         self.app.open_home_page()
         self.contact_cache = None
 
